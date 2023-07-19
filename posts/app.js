@@ -4,6 +4,9 @@ import { randomBytes } from 'crypto';
 
 // Instance of server
 const app = express();
+
+// Parse body of post request
+// newly replaced by express.json
 app.use(bodyParser.json());
 
 // Empty object to store posts
@@ -27,6 +30,6 @@ app.post('/posts', (req, res) => {
 });
 
 // Configure server
-app.listen(4000, () => {
-	console.log('Started development server');
+app.listen(5000, () => {
+	console.log('**Started development server');
 });
