@@ -12,24 +12,24 @@ app.use(bodyParser.json());
 // Empty object to store posts
 const posts = {};
 
-// API to get all posts
-app.get('/posts', (req, res) => {
-	res.send(posts);
-});
-
 // API to create new posts
-app.post('/posts', (req, res) => {
-	const id = randomBytes(4).toString('hex');
+app.post('/new-post', (req, res) => {
+	const postId = randomBytes(4).toString('hex');
 	const { title } = req.body;
 
-	posts[id] = {
-		id,
+	posts[postId] = {
+		postId,
 		title,
 	};
-	res.status(201).send(posts[id]);
+	res.status(201).send(posts[postId]);
+});
+
+// API to get all posts
+app.get('/all-posts', (req, res) => {
+	res.send(posts);
 });
 
 // Configure server
 app.listen(5000, () => {
-	console.log('**Started development server');
+	console.log('**Started Posts api service');
 });
