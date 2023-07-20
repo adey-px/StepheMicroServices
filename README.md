@@ -12,6 +12,7 @@
 - Next.js
 - Mongodb
 - Postman
+- Event Bus
 - Docker
 - Kubernetes
 - Google Cloud
