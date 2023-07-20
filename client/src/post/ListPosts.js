@@ -3,19 +3,22 @@ import axios from 'axios';
 import CreateComment from '../comment/CreateComment';
 import ListComments from '../comment/ListComments';
 
-// Fetch All Posts Component
+// Component - Fetch All Posts
 const ListPosts = () => {
 	const [posts, setPosts] = useState({});
 
+	/* fetch posts from post service */
 	const getPosts = async () => {
-		const res = await axios.get('http://localhost:5000/all-posts');
-		setPosts(res.data);
+		const response = await axios.get('http://localhost:5000/posts');
+		setPosts(response.data);
 	};
 
+	/* fetch once for every render */
 	useEffect(() => {
 		getPosts();
 	}, []);
 
+	/* render posts list to UI */
 	const renderPosts = Object.values(posts).map((post) => {
 		return (
 			<div
@@ -35,7 +38,7 @@ const ListPosts = () => {
 
 	return (
 		<div className='d-flex flex-row flex-wrap justify-content-between'>
-			<span>{renderPosts}</span>
+			{renderPosts}
 		</div>
 	);
 };

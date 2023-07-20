@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-// Create New Post Component
+// Component - Create New Post
 const CreatePost = () => {
 	const [title, setTitle] = useState('');
 
 	/* form submit handler */
 	const submitHandler = async (e) => {
 		e.preventDefault();
-		await axios.post('http://localhost:5000/new-post', {
+		await axios.post('http://localhost:5000/posts', {
 			title,
 		});
 

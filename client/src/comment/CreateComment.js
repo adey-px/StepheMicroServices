@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-// Create New Comment Component 
+// Component - Create New Comment
 const CreateComment = ({ postId }) => {
 	const [content, setContent] = useState('');
 
 	/* form submit handler */
-	const submitHandler = async (event) => {
-		event.preventDefault();
-		await axios.post(`http://localhost:5200/post/${postId}/new-comment`, {
+	const submitHandler = async (e) => {
+		e.preventDefault();
+		await axios.post(`http://localhost:5200/posts/${postId}/comments`, {
 			content,
 		});
 		setContent('');

@@ -8,27 +8,27 @@ const app = express();
 app.use(express.json());
 
 // Handle requests across diff ports
-app.use(cors())
+app.use(cors());
 
 // Empty object to store comments
 const commentsByPostId = {};
 
 // Create comment by post Id
-/* check for comment by postId passed in url, empty array for none, 
-	push the new comment into the array, assign it to the postId */
-app.post('/post/:pid/new-comment', (req, res) => {
+/* find comments by post Id passed in url, empty array for none, 
+	push new comment obj into the array, assign it to the post Id */
+app.post('/posts/:id/comments', (req, res) => {
 	const commentId = randomBytes(4).toString('hex');
 	const { content } = req.body;
-	const comment = commentsByPostId[req.params.pid] || [];
-	
-	comment.push({ id: commentId, content });
-	commentsByPostId[req.params.pid] = comment;
-	res.status(201).send(comment);
+	const comments = commentsByPostId[req.params.id] || [];
+
+	comments.push({ id: commentId, content });
+	commentsByPostId[req.params.id] = comments;
+	res.status(201).send(comments);
 });
 
-// Read comments by post Id
-app.get('/post/:pid/comments', (req, res) => {
-	res.send(commentsByPostId[req.params.pid] || []);
+// Read comments assigned to post Id, empty array for none
+app.get('/posts/:id/comments', (req, res) => {
+	res.send(commentsByPostId[req.params.id] || []);
 });
 
 // Configure server

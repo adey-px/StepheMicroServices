@@ -2,7 +2,6 @@ import React from 'react';
 import CreatePost from './post/CreatePost';
 import ListPosts from './post/ListPosts';
 
-//
 const App = () => {
 	return (
 		<div className='container'>
@@ -10,9 +9,11 @@ const App = () => {
 				<span>New Post</span>
 			</h3>
 			<CreatePost />
-			<hr className='mt-5'/>
+			<hr className='mt-5' />
 
-			<h2>All Posts</h2>
+			<h2 className='text-center mt-5'>
+				<span>All Posts</span>
+			</h2>
 			<ListPosts />
 		</div>
 	);
