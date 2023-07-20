@@ -5,4 +5,8 @@
 - each feature or service has its own server, business logic and standalone database
 
 ### Tool & Technology
-- Postman: Testing and debugging API
+- JavaScript
+- React
+- Bootstrap
+- Express
+- Postman

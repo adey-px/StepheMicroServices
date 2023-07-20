@@ -1,13 +1,15 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import { randomBytes } from 'crypto';
+import cors from 'cors';
 
 // Instance of server
 const app = express();
 
-// Parse body of post request
-// newly replaced by express.json
-app.use(bodyParser.json());
+// Parse body of incoming post request
+app.use(express.json());
+
+// Handle requests across diff ports
+app.use(cors())
 
 // Empty object to store posts
 const posts = {};

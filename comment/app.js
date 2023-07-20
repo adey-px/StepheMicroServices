@@ -1,8 +1,14 @@
 import express from 'express';
 import { randomBytes } from 'crypto';
+import cors from 'cors';
 
 const app = express();
+
+// Parse body of incoming post request
 app.use(express.json());
+
+// Handle requests across diff ports
+app.use(cors())
 
 // Empty object to store comments
 const commentsByPostId = {};
