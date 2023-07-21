@@ -32,6 +32,6 @@ app.get('/posts/:id/comments', (req, res) => {
 });
 
 // Configure server
-app.listen(5200, () => {
+app.listen(5002, () => {
 	console.log('**Started Comments api service');
 });
