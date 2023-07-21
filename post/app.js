@@ -15,6 +15,11 @@ app.use(cors());
 // Empty object to store posts
 const posts = {};
 
+// API - Get all posts, sent to client
+app.get('/posts', (req, res) => {
+	res.send(posts);
+});
+
 // API - create new post
 app.post('/posts', (req, res) => {
 	const id = randomBytes(4).toString('hex');
@@ -26,10 +31,9 @@ app.post('/posts', (req, res) => {
 		title,
 	};
 
-	/* send event data to event-bus api service */
+	/* send data to event-bus service */
 	axios
-		.post('http://localhost:5004/events')
-		.then({
+		.post('http://localhost:5004/events', {
 			type: 'Post Created',
 			data: {
 				id,
@@ -40,13 +44,15 @@ app.post('/posts', (req, res) => {
 			console.log('err');
 		});
 
-	/* send new Id to posts object  */
+	/* send created Id key to posts {} */
 	res.status(201).send(posts[id]);
 });
 
-// API - get all posts
-app.get('/posts', (req, res) => {
-	res.send(posts);
+// API - Receive data from event-bus
+app.post('/events', (req, res) => {
+	console.log('Received event data:', req.body.type);
+
+	res.send({});
 });
 
 // Configure server

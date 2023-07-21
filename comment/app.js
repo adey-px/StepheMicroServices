@@ -1,7 +1,7 @@
 import express from 'express';
 import { randomBytes } from 'crypto';
 import cors from 'cors';
-import axios from 'axios'
+import axios from 'axios';
 
 const app = express();
 
@@ -14,7 +14,12 @@ app.use(cors());
 // Empty object to store comments
 const commentsByPostId = {};
 
-// Create comment by post Id
+// API - Read comments by post Id, empty array for none
+app.get('/posts/:id/comments', (req, res) => {
+	res.send(commentsByPostId[req.params.id] || []);
+});
+
+// API - Create comment by post Id
 /* find comments by post Id passed in url, empty array for none, 
 	push new comment obj into the array, assign it to the post Id */
 app.post('/posts/:id/comments', (req, res) => {
@@ -25,10 +30,9 @@ app.post('/posts/:id/comments', (req, res) => {
 	comments.push({ id: commentId, content });
 	commentsByPostId[req.params.id] = comments;
 
-	/* send event data to event-bus api service */
+	/* send data to event-bus service */
 	axios
-		.post('http://localhost:5004/events')
-		.then({
+		.post('http://localhost:5004/events', {
 			type: 'Comment Created',
 			data: {
 				commentId,
@@ -40,12 +44,15 @@ app.post('/posts/:id/comments', (req, res) => {
 			console.log('err');
 		});
 
+	/* send created comments to client */
 	res.status(201).send(comments);
 });
 
-// Read comments assigned to post Id, empty array for none
-app.get('/posts/:id/comments', (req, res) => {
-	res.send(commentsByPostId[req.params.id] || []);
+// API - Receive data from event-bus
+app.post('/events', (req, res) => {
+	console.log('Received event data:', req.body.type);
+
+	res.send({});
 });
 
 // Configure server
