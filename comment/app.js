@@ -1,6 +1,7 @@
 import express from 'express';
 import { randomBytes } from 'crypto';
 import cors from 'cors';
+import axios from 'axios'
 
 const app = express();
 
@@ -23,6 +24,22 @@ app.post('/posts/:id/comments', (req, res) => {
 
 	comments.push({ id: commentId, content });
 	commentsByPostId[req.params.id] = comments;
+
+	/* send event data to event-bus api service */
+	axios
+		.post('http://localhost:5004/events')
+		.then({
+			type: 'Comment Created',
+			data: {
+				commentId,
+				content,
+				postId: req.params.id,
+			},
+		})
+		.catch((err) => {
+			console.log('err');
+		});
+
 	res.status(201).send(comments);
 });
 

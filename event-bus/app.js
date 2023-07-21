@@ -7,6 +7,8 @@ app.use(express.json());
 // API - Event data distribution pipeline
 app.post('/events', (req, res) => {
 	const event = req.body;
+  
+  /* distribute data to in-app services */
 	axios.post('http://localhost:5001', event).catch((err) => {
 		if (err) {
 			console.log(err);
@@ -17,11 +19,11 @@ app.post('/events', (req, res) => {
 			console.log(err);
 		}
 	});
-	axios.post('http://localhost:5003', event).catch((err) => {
-		if (err) {
-			console.log(err);
-		}
-	});
+	// axios.post('http://localhost:5003', event).catch((err) => {
+	// 	if (err) {
+	// 		console.log(err);
+	// 	}
+	// });
 
 	res.send({ status: 'OK' });
 });
