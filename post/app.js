@@ -15,7 +15,7 @@ app.use(cors());
 // Empty object to store posts
 const posts = {};
 
-// API - Get all posts, sent to client
+// API - Get all posts, forward to client
 app.get('/posts', (req, res) => {
 	res.send(posts);
 });
@@ -50,8 +50,7 @@ app.post('/posts', (req, res) => {
 
 // API - Receive data from event-bus
 app.post('/events', (req, res) => {
-	console.log('Received event data:', req.body.type);
-
+	console.log('Received data:', req.body.type);
 	res.send({});
 });
 
