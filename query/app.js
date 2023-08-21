@@ -1,9 +1,9 @@
-import express, { json } from 'express';
+import express from 'express';
 import cors from 'cors';
 
 const app = express();
+app.use(express.json());
 app.use(cors());
-app.use(json());
 
 // Container for posts & comments
 const posts = {};
@@ -14,16 +14,15 @@ app.get('/posts', (req, res) => {
 });
 
 // API - Receive data from event-bus
+/* Save post, save comment & its post */
 app.post('/events', (req, res) => {
 	const { type, data } = req.body;
 	console.log(`${type}, ${data}`);
 
-	/** Save post received */
 	if (type === 'Post Created') {
 		const { id, title } = data;
 		posts[id] = { id, title, comments: [] };
 	}
-	/** save comment and its post */
 	if (type === 'Comment Created') {
 		const { id, content, postId } = data;
 		const post = posts[postId];
