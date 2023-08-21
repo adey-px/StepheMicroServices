@@ -47,7 +47,7 @@ app.post('/posts/:id/comments', (req, res) => {
 	res.status(201).send(comments);
 });
 
-// API - Receive data from event-bus
+// API - Receive data from eventBus
 app.post('/events', (req, res) => {
 	console.log('Received event data:', req.body.type);
 	res.send({});

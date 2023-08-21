@@ -13,7 +13,7 @@ app.get('/posts', (req, res) => {
 	res.send(posts);
 });
 
-// API - Receive data from event-bus
+// API - Receive data from eventBus
 /* Save post, save comment & its post */
 app.post('/events', (req, res) => {
 	const { type, data } = req.body;

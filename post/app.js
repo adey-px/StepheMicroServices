@@ -30,7 +30,7 @@ app.post('/posts', (req, res) => {
 		id,
 		title,
 	};
-	/* send new post data to event-bus */
+	/* send new post data to eventBus */
 	axios
 		.post('http://localhost:5004/events', {
 			type: 'Post Created',
@@ -46,7 +46,7 @@ app.post('/posts', (req, res) => {
 	res.status(201).send(posts[id]);
 });
 
-// API - Receive data from event-bus
+// API - Receive data from eventBus
 app.post('/events', (req, res) => {
 	console.log('Received data:', req.body.type);
 	res.send({});
