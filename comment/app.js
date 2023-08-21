@@ -14,7 +14,7 @@ app.use(cors());
 // Empty object to store comments
 const commentsByPostId = {};
 
-// API - Read comments by post Id, empty array for none
+// API - Read comments by post Id, [] for none
 app.get('/posts/:id/comments', (req, res) => {
 	res.send(commentsByPostId[req.params.id] || []);
 });

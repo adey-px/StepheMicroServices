@@ -15,6 +15,8 @@ app.get('/posts', (req, res) => {
 // API - Receive data from event-bus
 app.post('/events', (req, res) => {
 	const { type, data } = req.body;
+	console.log(`${type}, ${data}`);
+	
 	if (type === 'Post Created') {
 		const { id, title } = data;
 		posts[id] = { id, title, comments: [] };

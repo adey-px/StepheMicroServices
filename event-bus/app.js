@@ -5,11 +5,10 @@ const app = express();
 app.use(express.json());
 
 // API - Event data distribution pipeline
+/* Send data to Post, Comment & Query services */
 app.post('/events', (req, res) => {
 	const event = req.body;
 	console.log(event);
-
-	/* distribute data to post, comment & query services */
 	axios.post('http://localhost:5001/events', event).catch((err) => {
 		if (err) {
 			console.log(err);
@@ -25,7 +24,6 @@ app.post('/events', (req, res) => {
 			console.log(err);
 		}
 	});
-
 	res.send({ status: 'OK' });
 });
 
