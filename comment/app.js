@@ -19,9 +19,12 @@ app.get('/posts/:id/comments', (req, res) => {
 	res.send(commentsByPostId[req.params.id] || []);
 });
 
-// API - Create comment by post Id
-/* find comments by post Id passed in url, empty array for none, 
-	push new comment obj into the array, assign it to the post Id */
+/* API - Create comment by post Id
+- find comments by post Id passed in url, empty array for none 
+- push new comment obj into the array, assign it to the post Id 
+- comment is by id, its content & associated post
+- send data to event-bus service
+*/
 app.post('/posts/:id/comments', (req, res) => {
 	const commentId = randomBytes(4).toString('hex');
 	const { content } = req.body;
@@ -29,8 +32,6 @@ app.post('/posts/:id/comments', (req, res) => {
 
 	comments.push({ id: commentId, content });
 	commentsByPostId[req.params.id] = comments;
-
-	/* send data to event-bus service */
 	axios
 		.post('http://localhost:5004/events', {
 			type: 'Comment Created',
@@ -43,8 +44,6 @@ app.post('/posts/:id/comments', (req, res) => {
 		.catch((err) => {
 			console.log('err');
 		});
-
-	/* send created comments to client */
 	res.status(201).send(comments);
 });
 
