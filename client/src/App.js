@@ -6,16 +6,17 @@ const App = () => {
 	return (
 		<div className='container'>
 			<h3 className='text-center mt-5'>
-				<span>New Post</span>
+				<span>Create Post</span>
 			</h3>
 			<CreatePost />
 			<hr className='mt-5' />
 
 			<h2 className='text-center mt-5'>
-				<span>All Posts</span>
+				<span>Recent Posts</span>
 			</h2>
 			<ListPosts />
 		</div>
 	);
 };
+
 export default App;

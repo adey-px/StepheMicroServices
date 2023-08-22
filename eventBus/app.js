@@ -29,5 +29,5 @@ app.post('/events', (req, res) => {
 
 // Configure server
 app.listen(5004, () => {
-	console.log('**Started event-bus api service');
+	console.log('**Started eventBus api service');
 });

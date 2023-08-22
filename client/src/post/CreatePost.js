@@ -11,7 +11,6 @@ const CreatePost = () => {
 		await axios.post('http://localhost:5001/posts', {
 			title,
 		});
-
 		setTitle('');
 	};
 
@@ -27,7 +26,7 @@ const CreatePost = () => {
 					/>
 				</div>
 				<button className='btn btn-primary'>
-					<span>Create</span>
+					<span>Send</span>
 				</button>
 			</form>
 		</div>

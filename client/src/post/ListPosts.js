@@ -6,10 +6,11 @@ import ListComments from '../comment/ListComments';
 // Component - Fetch All Posts
 const ListPosts = () => {
 	const [posts, setPosts] = useState({});
-
-	/* fetch posts from post service */
+	
+	/* fetch posts from Query service */
 	const getPosts = async () => {
-		const response = await axios.get('http://localhost:5001/posts');
+		const response = await axios.get('http://localhost:5003/posts');
+		console.log(response.data)
 		setPosts(response.data);
 	};
 
@@ -29,7 +30,7 @@ const ListPosts = () => {
 					<h3 className='text-center'>
 						<span>{post.title}</span>
 					</h3>
-					<ListComments postId={post.id} />
+					<ListComments comments={post.comments} />
 					<CreateComment postId={post.id} />
 				</div>
 			</div>

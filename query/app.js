@@ -14,7 +14,7 @@ app.get('/posts', (req, res) => {
 });
 
 // API - Receive data from eventBus
-/* Save post, save comment & its post */
+/* Get both post & associated comments */
 app.post('/events', (req, res) => {
 	const { type, data } = req.body;
 	console.log(`${type}, ${data}`);
