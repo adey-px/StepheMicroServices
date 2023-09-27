@@ -22,7 +22,7 @@ app.get('/posts', (req, res) => {
 });
 
 // API - create new post
-/** new post: id as key = {id, title} */
+/* new post: id as key = {id, title} */
 app.post('/posts', (req, res) => {
 	const id = randomBytes(4).toString('hex');
 	const { title } = req.body;
@@ -30,7 +30,7 @@ app.post('/posts', (req, res) => {
 		id,
 		title,
 	};
-	/* send new post data to eventBus */
+	/ send new post data to eventBus /
 	axios
 		.post('http://localhost:5004/events', {
 			type: 'Post Created',

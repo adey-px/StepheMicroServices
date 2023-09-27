@@ -4,22 +4,22 @@ import axios from 'axios';
 const app = express();
 app.use(express.json());
 
-// API - Event data distribution pipeline
-/* Send data to Post, Comment & Query services */
+// API - Event Data Distribution Pipeline
+/* Send all events data received, back to Post, Comment & Query services */
 app.post('/events', (req, res) => {
-	const event = req.body;
-	console.log(event);
-	axios.post('http://localhost:5001/events', event).catch((err) => {
+	const events = req.body;
+	console.log(events);
+	axios.post('http://localhost:5001/events', events).catch((err) => {
 		if (err) {
 			console.log(err);
 		}
 	});
-	axios.post('http://localhost:5002/events', event).catch((err) => {
+	axios.post('http://localhost:5002/events', events).catch((err) => {
 		if (err) {
 			console.log(err);
 		}
 	});
-	axios.post('http://localhost:5003/events', event).catch((err) => {
+	axios.post('http://localhost:5003/events', events).catch((err) => {
 		if (err) {
 			console.log(err);
 		}

@@ -11,7 +11,7 @@ app.use(express.json());
 // Request handler across diff ports
 app.use(cors());
 
-// Empty object to store comments
+// Empty array & object to store comments
 const comments = [];
 const commentsByPostId = {};
 
@@ -24,10 +24,10 @@ app.get('/post/:id/comments', (req, res) => {
 app.post('/post/:id/comments', (req, res) => {
 	const randomId = randomBytes(4).toString('hex');
 	const { content } = req.body;
-	comments.push({ commentId: randomId, content, rank: 'Pending' });
+	comments.push({ commentId: randomId, content, Status: 'Pending' });
 	commentsByPostId[req.params.id] = comments;
 
-	/ send comment data to eventBus service /;
+	/ send new comment data to eventBus /;
 	axios
 		.post('http://localhost:5004/events', {
 			type: 'Comment Created',
@@ -35,6 +35,7 @@ app.post('/post/:id/comments', (req, res) => {
 				commentId: randomId,
 				content: content,
 				postId: req.params.id,
+				status: 'Pending',
 			},
 		})
 		.catch((err) => {
@@ -46,7 +47,7 @@ app.post('/post/:id/comments', (req, res) => {
 // API - Receive data from eventBus
 // Not doing anything about the data
 app.post('/events', (req, res) => {
-	console.log('Received event data:', req.body.type);
+	console.log('Received data:', req.body.type);
 	res.send({});
 });
 
