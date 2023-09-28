@@ -16,25 +16,24 @@ const comments = [];
 const commentsByPostId = {};
 
 // API - Read comments by post Id, [] for none
-app.get('/post/:id/comments', (req, res) => {
-	res.send(commentsByPostId[req.params.id] || []);
+app.get('/post/:postId/comments', (req, res) => {
+	res.send(commentsByPostId[req.params.postId] || []);
 });
 
 // API - Create comment by post Id
-app.post('/post/:id/comments', (req, res) => {
+app.post('/post/:postId/comments', (req, res) => {
 	const randomId = randomBytes(4).toString('hex');
 	const { content } = req.body;
 	comments.push({ commentId: randomId, content, Status: 'Pending' });
-	commentsByPostId[req.params.id] = comments;
+	commentsByPostId[req.params.postId] = comments;
 
-	/ send new comment data to eventBus /;
-	axios
+	/* send new comment data to eventBus */ axios
 		.post('http://localhost:5004/events', {
 			type: 'Comment Created',
 			data: {
 				commentId: randomId,
 				content: content,
-				postId: req.params.id,
+				postId: req.params.postId,
 				status: 'Pending',
 			},
 		})
@@ -44,10 +43,31 @@ app.post('/post/:id/comments', (req, res) => {
 	res.status(201).send(comments);
 });
 
-// API - Receive data from eventBus
-// Not doing anything about the data
-app.post('/events', (req, res) => {
+// API - Handle incoming data from eventBus
+app.post('/events', async (req, res) => {
 	console.log('Received data:', req.body.type);
+	const { type, data } = req.body;
+
+	/* update comment status by postId */
+	if (type === 'Created Comment') {
+		const { commentId, content, postId, status } = data;
+		const comments = commentsByPostId[postId];
+		const comment = comments.find((comment) => {
+			return comment.commentId === commentId;
+		});
+		comment.status = status;
+
+		/* send updated comment to eventBus */
+		await axios.post('http://localhost:5004/events', {
+			type: 'Comment Updated',
+			data: {
+				commentId,
+				content,
+				postId,
+				status,
+			},
+		});
+	}
 	res.send({});
 });
 

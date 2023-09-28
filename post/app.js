@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 // Empty object to store posts
-/** post is an id as key = {id, title}  */
+/* post is an id as key = {id, title} */
 const posts = {};
 
 // API - Get all posts, forward to client
@@ -30,7 +30,7 @@ app.post('/posts', (req, res) => {
 		id,
 		title,
 	};
-	/ send new post data to eventBus /
+	/ send new post data to eventBus /;
 	axios
 		.post('http://localhost:5004/events', {
 			type: 'Post Created',
@@ -42,12 +42,12 @@ app.post('/posts', (req, res) => {
 		.catch((err) => {
 			console.log('err');
 		});
-	/* send created Id key to posts {} */
+	/ send created Id key to posts {} /;
 	res.status(201).send(posts[id]);
 });
 
-// API - Receive data from eventBus
-// Not doing anything about the data
+// API - Handle incoming data from eventBus
+/* Not doing anything about the data */;
 app.post('/events', (req, res) => {
 	console.log('Received data:', req.body.type);
 	res.send({});
