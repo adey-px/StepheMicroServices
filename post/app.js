@@ -6,7 +6,7 @@ import cors from 'cors';
 // Instance of server
 const app = express();
 
-// Parse body of incoming post request
+// Parse body of incoming request
 app.use(express.json());
 
 // Handle requests across diff ports

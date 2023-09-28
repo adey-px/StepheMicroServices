@@ -3,12 +3,13 @@ import { randomBytes } from 'crypto';
 import cors from 'cors';
 import axios from 'axios';
 
+// Instance of server
 const app = express();
 
 // Parse body of incoming request
 app.use(express.json());
 
-// Request handler across diff ports
+// Handle requests across diff ports
 app.use(cors());
 
 // Empty array & object to store comments

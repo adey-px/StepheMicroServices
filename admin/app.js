@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const app = express();
 
-// Parse body of incoming post request
+// Parse body of incoming request
 app.use(express.json());
 
 // API - Handle incoming data from eventBus

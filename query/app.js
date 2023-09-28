@@ -1,8 +1,13 @@
 import express from 'express';
 import cors from 'cors';
 
+// Instance of server
 const app = express();
+
+// Parse body of incoming request
 app.use(express.json());
+
+// Handle requests across diff ports
 app.use(cors());
 
 // Container for posts & comments
