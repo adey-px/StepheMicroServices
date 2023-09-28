@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CreateComment from '../comment/CreateComment';
-import ListComments from '../comment/ListComments';
+import ShowComments from '../comment/ShowComments';
 
-// Component - Fetch All Posts
+// Component - Fetch All Posts from Query Service
 const ListPosts = () => {
 	const [posts, setPosts] = useState({});
-	
-	/* fetch posts from Query service */
 	const getPosts = async () => {
 		const response = await axios.get('http://localhost:5003/posts');
-		console.log(response.data)
+		console.log(response.data);
 		setPosts(response.data);
 	};
-
 	/* fetch once for every render */
 	useEffect(() => {
 		getPosts();
@@ -30,18 +27,14 @@ const ListPosts = () => {
 					<h3 className='text-center'>
 						<span>{post.title}</span>
 					</h3>
-					<ListComments comments={post.comments} />
+					<ShowComments comments={post.comments} />
 					<CreateComment postId={post.id} />
 				</div>
 			</div>
 		);
 	});
 
-	return (
-		<div className='d-flex flex-row flex-wrap justify-content-between'>
-			{renderPosts}
-		</div>
-	);
+	return <div className='d-flex flex-row flex-wrap justify-content-between'>{renderPosts}</div>;
 };
 
 export default ListPosts;

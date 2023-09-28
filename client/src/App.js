@@ -1,6 +1,6 @@
 import React from 'react';
 import CreatePost from './post/CreatePost';
-import ListPosts from './post/ListPosts';
+import ListPosts from './post/ShowPosts';
 
 const App = () => {
 	return (

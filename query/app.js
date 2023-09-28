@@ -13,7 +13,7 @@ app.use(cors());
 // Container for posts & comments
 const posts = {};
 
-// API - Get all posts
+// API - Get all posts for client service
 app.get('/posts', (req, res) => {
 	res.send(posts);
 });
