@@ -9,10 +9,10 @@ app.use(express.json());
 // API - Handle incoming data from eventBus
 app.post('/events', async (req, res) => {
 	const { type, data } = req.body;
+
+	/* moderate comment status, send back to eventBus */
 	if (type === 'Comment Created') {
 		const status = data.content.includes('red') ? 'Rejected' : 'Approved';
-
-		/* send comment status update to eventBus */
 		await axios.post('http://localhost:5004/events', {
 			type: 'Comment Updated',
 			data: {
