@@ -44,7 +44,8 @@ app.post('/post/:postId/comments', (req, res) => {
 	res.status(201).send(comments);
 });
 
-// API - Handle incoming data from eventBus
+// API - Receive, Handle Incoming Event from EventBus
+/* use post method bcos it sent back as response */
 app.post('/events', async (req, res) => {
 	console.log('Received data:', req.body.type);
 	const { type, data } = req.body;
@@ -58,7 +59,7 @@ app.post('/events', async (req, res) => {
 		});
 		comment.status = status;
 
-		/* send updated comment to eventBus */
+		/* send comment update to eventBus */
 		await axios.post('http://localhost:5004/events', {
 			type: 'Comment Updated',
 			data: {

@@ -6,7 +6,8 @@ const app = express();
 // Parse body of incoming request
 app.use(express.json());
 
-// API - Handle incoming data from eventBus
+// API - Receive, Handle Incoming Event from EventBus
+/* use post method bcos it sent back as response */
 app.post('/events', async (req, res) => {
 	const { type, data } = req.body;
 

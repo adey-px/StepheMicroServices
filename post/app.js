@@ -21,7 +21,7 @@ app.get('/posts', (req, res) => {
 	res.send(posts);
 });
 
-// API - create new post
+// API - Create New Post, identify by id
 /* new post: id as key = {id, title} */
 app.post('/posts', (req, res) => {
 	const id = randomBytes(4).toString('hex');
@@ -46,8 +46,8 @@ app.post('/posts', (req, res) => {
 	res.status(201).send(posts[id]);
 });
 
-// API - Handle incoming data from eventBus
-/* Not doing anything about the data */;
+// API - Receive, Handle Incoming Event from EventBus
+/* nothing is done about the data */;
 app.post('/events', (req, res) => {
 	console.log('Received data:', req.body.type);
 	res.send({});

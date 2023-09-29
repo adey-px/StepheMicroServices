@@ -5,21 +5,21 @@ const ShowComments = ({ comments }) => {
 	const aLLcomments = comments.map((comment) => {
 		let content;
 		if (comment.status === 'Pending') {
-			content = 'Comment is awaiting moderation';
+			content = '*Comment is held for moderation';
 		}
 		if (comment.status === 'Rejected') {
-			content = 'Comment has been rejected';
+			content = '!This comment has been flagged';
 		}
 		if (comment.status === 'Approved') {
 			content = comment.content;
 		}
-
 		return (
-			<li key={comment.id}>
+			<li key={comment.commentId}>
 				<span>{content}</span>
 			</li>
 		);
 	});
+	
 	return <ul>{aLLcomments}</ul>;
 };
 
